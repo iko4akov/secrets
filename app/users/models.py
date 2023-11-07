@@ -37,7 +37,7 @@ class User(AbstractUser):
         verbose_name='city',
         **NULLABLE
     )
-    is_verified: bool = models.BooleanField(
+    is_verified = models.BooleanField(
         verbose_name='is verified',
         default=False
     )

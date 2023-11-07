@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'users',
+    'secret',
 ]
 
 MIDDLEWARE = [
@@ -86,11 +87,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'secret',
-        'HOST': 'localhost',
-        'PASSWORD': '1110',
-        'USER': 'postgres',
-        'PORT': 5432,
+        'NAME': os.getenv('DB_NAME'),
+        'HOST': os.getenv('DB_HOST'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'USER': os.getenv('DB_USER'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -170,6 +171,8 @@ CACHES = {
     }
 }
 
+
+
 CELERY_BROKER_URL = 'redis://localhost:6379/'
 
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/'
@@ -186,3 +189,4 @@ EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+
