@@ -31,11 +31,6 @@ class SecretGenerateView(generics.CreateAPIView):
         message = "ЗАПОМНИ, после прочтения секрета он будет сожжен," \
                   "secret_key можно использовать только ОДИН раз"
 
-        secret_pk = serializer.data.get('pk')
-        date_of_burning = serializer.data.get('date_of_burning')
-        test_date = '2023-11-08 15:40:00'
-
-
 
         return Response(
             {

@@ -195,7 +195,7 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BEAT_SCHEDULE = {
     'secret-burning': {
         'task': 'secret.tasks.burning_secret',
-        'schedule': timedelta(minutes=4),
+        'schedule': timedelta(hours=8),
     },
     'user-deactivation': {
         'task': 'users.tasks.activity_check',
