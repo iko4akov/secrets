@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -5,7 +7,7 @@ from rest_framework.response import Response
 from secret.models import Secret
 from secret.paginators import SecretPaginator
 from secret.serializers import SecretSerializer
-
+from secret.tasks import burning_secret
 
 class SecretListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
@@ -28,6 +30,13 @@ class SecretGenerateView(generics.CreateAPIView):
 
         message = "ЗАПОМНИ, после прочтения секрета он будет сожжен," \
                   "secret_key можно использовать только ОДИН раз"
+
+        secret_pk = serializer.data.get('pk')
+        date_of_burning = serializer.data.get('date_of_burning')
+        test_date = '2023-11-08 15:40:00'
+
+
+
         return Response(
             {
             'secret_key': serializer.data.get('secret_key'),
