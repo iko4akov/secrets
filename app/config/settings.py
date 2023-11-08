@@ -45,8 +45,10 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_simplejwt',
+    'django_celery_beat',
 
     'users',
+    'secret',
 ]
 
 MIDDLEWARE = [
@@ -86,11 +88,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'secret',
-        'HOST': 'localhost',
-        'PASSWORD': '1110',
-        'USER': 'postgres',
-        'PORT': 5432,
+        'NAME': os.getenv('DB_NAME'),
+        'HOST': os.getenv('DB_HOST'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'USER': os.getenv('DB_USER'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -170,9 +172,15 @@ CACHES = {
     }
 }
 
-CELERY_BROKER_URL = 'redis://localhost:6379/'
+CELERY_BROKER_URL = os.getenv(
+    "CELERY_BROKER_URL",
+    "redis://127.0.0.1:6379/0"
+)
+CELERY_RESULT_BACKEND = os.getenv(
+    "CELERY_RESULT_BACKEND",
+    "redis://127.0.0.1:6379/0"
+)
 
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/'
 
 CELERY_TIMEZONE = "Europe/Moscow"
 
@@ -180,9 +188,25 @@ CELERY_TASK_TRACK_STARTED = True
 
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BROKER_CHANNEL_ERROR_RETRY = True
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULE = {
+    'secret-burning': {
+        'task': 'secret.tasks.burning_secret',
+        'schedule': timedelta(hours=8),
+    },
+    'user-deactivation': {
+        'task': 'users.tasks.activity_check',
+        'schedule': timedelta(days=1),
+    },
+}
+
 
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+

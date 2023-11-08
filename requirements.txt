@@ -7,7 +7,10 @@ click==8.1.7
 click-didyoumean==0.3.0
 click-plugins==1.1.1
 click-repl==0.3.0
+cron-descriptor==1.4.0
 Django==4.2.7
+django-celery-beat==2.5.0
+django-timezone-field==6.0.1
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.0
 evdev==1.6.1
@@ -16,10 +19,16 @@ maskpass==0.3.7
 Pillow==10.1.0
 prompt-toolkit==3.0.39
 psycopg2-binary==2.9.9
+pyasn1==0.5.0
+pycrypto==2.6.1
+pycryptodome==3.19.0
 PyJWT==2.8.0
 pynput==1.7.6
+python-crontab==3.0.0
 python-dateutil==2.8.2
 python-dotenv==1.0.0
+python-keyczar==0.716
+python-keyczar-2==0.725
 python-xlib==0.33
 pytz==2023.3.post1
 redis==5.0.1

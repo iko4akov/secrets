@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from users.models import User
 
-from config.settings import EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+from config.settings import EMAIL_HOST_USER
 
 @shared_task
 def activity_check():
