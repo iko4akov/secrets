@@ -13,9 +13,12 @@ django-celery-beat==2.5.0
 django-timezone-field==6.0.1
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.0
+drf-yasg==1.21.7
 evdev==1.6.1
+inflection==0.5.1
 kombu==5.3.2
 maskpass==0.3.7
+packaging==23.2
 Pillow==10.1.0
 prompt-toolkit==3.0.39
 psycopg2-binary==2.9.9
@@ -31,11 +34,13 @@ python-keyczar==0.716
 python-keyczar-2==0.725
 python-xlib==0.33
 pytz==2023.3.post1
+PyYAML==6.0.1
 redis==5.0.1
 rest-framework-simplejwt==0.0.2
 six==1.16.0
 sqlparse==0.4.4
 typing_extensions==4.8.0
 tzdata==2023.3
+uritemplate==4.1.1
 vine==5.1.0
 wcwidth==0.2.9

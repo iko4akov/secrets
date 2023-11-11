@@ -32,7 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_celery_beat',
+
+    'drf_yasg',
 
     'users',
     'secret',
@@ -88,11 +89,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'HOST': os.getenv('DB_HOST'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'USER': os.getenv('DB_USER'),
-        'PORT': os.getenv('DB_PORT'),
+        'NAME': os.getenv('DB_NAME', 'secret'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'postgres'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PORT': os.getenv('DB_PORT', 5432),
     }
 }
 
@@ -102,16 +103,24 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.'
+            'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.'
+            'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.'
+            'NumericPasswordValidator',
     },
 ]
 
@@ -209,4 +218,3 @@ EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
-

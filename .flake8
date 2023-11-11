@@ -1,0 +1,10 @@
+[flake8]
+exclude = *.git, *__pycache__, *.env, */migrations/*
+max-complexity = 8
+max-line-length = 79
+max-doc-length = 72
+indent-size = 4
+
+count = True
+show-source = True
+statistics = True

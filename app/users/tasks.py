@@ -8,6 +8,7 @@ from users.models import User
 
 from config.settings import EMAIL_HOST_USER
 
+
 @shared_task
 def activity_check():
     due_date = timezone.now() - timedelta(days=30)
