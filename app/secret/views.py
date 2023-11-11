@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -7,7 +5,7 @@ from rest_framework.response import Response
 from secret.models import Secret
 from secret.paginators import SecretPaginator
 from secret.serializers import SecretSerializer
-from secret.tasks import burning_secret
+
 
 class SecretListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
@@ -31,11 +29,10 @@ class SecretGenerateView(generics.CreateAPIView):
         message = "ЗАПОМНИ, после прочтения секрета он будет сожжен," \
                   "secret_key можно использовать только ОДИН раз"
 
-
         return Response(
             {
-            'secret_key': serializer.data.get('secret_key'),
-            'VARNING': message,
+                'secret_key': serializer.data.get('secret_key'),
+                'VARNING': message,
             },
             status=status.HTTP_201_CREATED
         )
@@ -61,8 +58,10 @@ class SecretDestroyView(generics.DestroyAPIView):
         name_secret = instance.name_secret
         self.perform_destroy(instance)
         message = f"'Secret {name_secret} deleted successfully."
-        return Response({'message': message}, status=status.HTTP_204_NO_CONTENT)
-
+        return Response(
+            {'message': message},
+            status=status.HTTP_204_NO_CONTENT
+        )
 
 
 class ReadSecretRetrieveView(generics.RetrieveAPIView):

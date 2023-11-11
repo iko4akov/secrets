@@ -31,9 +31,13 @@ class Secret(models.Model):
     is_reader = models.BooleanField(default=False)
 
     word_code = models.CharField(max_length=50, verbose_name='кодовое слово')
-    secret_key = models.CharField(max_length=100, verbose_name='url тайны', **NULLABLE)
+    secret_key = models.CharField(
+        max_length=100,
+        verbose_name='url',
+        **NULLABLE
+    )
 
-    date_of_burning = models.DateTimeField(verbose_name='дата сожжения секрета', **NULLABLE)
+    date_of_burning = models.DateTimeField(verbose_name='burn day', **NULLABLE)
     date_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

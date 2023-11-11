@@ -29,7 +29,6 @@ class UsersRegistrationView(generics.CreateAPIView):
         current_site = get_current_site(self.request)
         mail_subject = 'Подтверждение электронной почты'
 
-
         message = render_to_string(
             'users/registrations/verification_email.html',
             {
