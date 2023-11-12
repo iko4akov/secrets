@@ -5,12 +5,12 @@ services:
     image: postgres:15
     restart: always
     container_name: postgres
-    env_file:
-      - .env
     ports:
       - "5432:5432"
+    env_file:
+      - .env
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d secret" ]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -47,15 +47,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    tty: true
     container_name: celery
     command: bash -c  "cd app/ && celery -A config worker -l INFO"
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      app:
-        condition: service_started
+      - app
     env_file:
       - .env
     volumes:
@@ -65,6 +61,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    tty: true
     container_name: celery-beat
     command: bash -c "cd /app && celery -A config beat -l INFO"
     env_file:
@@ -72,12 +69,7 @@ services:
     volumes:
       - static_volume:/app/static
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      app:
-        condition: service_started
+      - celery
 
 volumes:
   static_volume:
