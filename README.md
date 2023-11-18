@@ -18,9 +18,7 @@ This Django application provides a simple secret management system with time-lim
 #### life_days: 
 `IntegerField, indicating the number of days the secret will be valid.`
 #### is_reader: 
-`BooleanField, defaulting to False, used to track whether the secret has been viewed.`
-#### word_code: 
-`CharField with a maximum length of 50, representing a code word associated with the secret.`
+`BooleanField, defaulting to False, used to track whether the secret has been viewed.`
 #### secret_key: 
 `CharField with a maximum length of 100, representing a unique URL for the secret.`
 #### date_of_burning: 
